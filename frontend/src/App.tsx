@@ -1,11 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
+import Navbar from './components/Navbar';
+
 
 function App() {
   return (
-    <div >
-      <h1>Pagina Principal</h1>
-    </div>
+ 
+    <Navbar />
+
   );
 }
 
