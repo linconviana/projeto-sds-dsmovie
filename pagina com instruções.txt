@@ -1,0 +1,17 @@
+https://github.com/devsuperior/sds-dsmovie
+
+visual code extenções
+* eslint
+*color highkight
+*jsx HTML
+*live server
+*markdown Preview
+*visual studio intelicode
+
+
+criar projeto spring
+https://start.spring.io/
+
+
+
+

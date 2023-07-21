@@ -1,0 +1,388 @@
+{\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang22 Guia de instala\'e7\'e3o das ferramentas\par
+\par
+node -v\par
+yarn -v\par
+Caso precise instalar o Yarn, fa\'e7a o comando:\par
+\par
+npm install --global yarn\par
+Design Figma\par
+{{\field{\*\fldinst{HYPERLINK https://www.figma.com/file/hpQuzpGHq2MmrI87xnfMoT/DSMovie1 }}{\fldrslt{https://www.figma.com/file/hpQuzpGHq2MmrI87xnfMoT/DSMovie1\ul0\cf0}}}}\f0\fs22\par
+\par
+{{\field{\*\fldinst{HYPERLINK https://www.figma.com/file/svCMhNqgpAZuN86w9IHJ4v/DSMovie2 }}{\fldrslt{https://www.figma.com/file/svCMhNqgpAZuN86w9IHJ4v/DSMovie2\ul0\cf0}}}}\f0\fs22\par
+\par
+{{\field{\*\fldinst{HYPERLINK https://www.figma.com/file/gEZYKqJJs2gEhIB6k9ksGB/DSMovie3 }}{\fldrslt{https://www.figma.com/file/gEZYKqJJs2gEhIB6k9ksGB/DSMovie3\ul0\cf0}}}}\f0\fs22\par
+\par
+{{\field{\*\fldinst{HYPERLINK https://www.figma.com/file/hyovBMIxwrn2Bb5MZLrxHL/DSMovie4 }}{\fldrslt{https://www.figma.com/file/hyovBMIxwrn2Bb5MZLrxHL/DSMovie4\ul0\cf0}}}}\f0\fs22\par
+\par
+Passo: criar projeto ReactJS\par
+ATEN\'c7\'c3O: esta ser\'e1 a estrutura de pastas que vamos criar:\par
+DevSuperior no Instagram\par
+\par
+yarn create react-app frontend --template typescript\par
+OU:\par
+\par
+npx create-react-app frontend --template typescript\par
+IMPORTANTE: deletar subpasta .git\par
+\par
+Lembrete: ver extens\'f5es e arquivos ocultos\par
+Passo: criar projeto Spring Boot\par
+Criar projeto Spring Boot no Spring Initializr com as seguintes depend\'eancias:\par
+\par
+Web\par
+JPA\par
+H2\par
+Postgres\par
+Security\par
+Ajuste no arquivo pom.xml:\par
+\par
+<plugin>\par
+\tab <groupId>org.apache.maven.plugins</groupId>\par
+\tab <artifactId>maven-resources-plugin</artifactId>\par
+\tab <version>3.1.0</version>\par
+</plugin>\par
+Bot\'e3o direito no projeto -> Maven -> Update project (force update)\par
+Passo: salvar primeira vers\'e3o no Github\par
+Playlist de introdu\'e7\'e3o e configura\'e7\'e3o do Git/Github\par
+\par
+git config --global user.name <seu nome>\par
+git config --global user.email <seu email>\par
+\par
+git init\par
+\par
+git add .\par
+\par
+git commit -m "Project created"\par
+\par
+git remote ...\par
+git status\par
+\par
+git remote -v\par
+\par
+git branch -M main\par
+\par
+git push -u origin main\par
+Passo: "limpar" o projeto ReactJS\par
+Deletar arquivos n\'e3o usados\par
+\par
+COMMIT: Project clean\par
+\par
+Passo: adicionar Bootstrap e CSS ao projeto\par
+Bootstrap\par
+yarn add bootstrap@5.1.3\par
+Arquivo index.css\par
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');\par
+\par
+:root \{\par
+  --color-primary: #4D41C0;\par
+\}\par
+\par
+* \{\par
+    box-sizing: border-box;\par
+    font-family: 'Open Sans', sans-serif;\par
+\}\par
+\par
+html, body \{\par
+    background-color: #E5E5E5;\par
+\}\par
+\par
+a, a:hover \{\par
+  text-decoration: none;\par
+  color: unset;\par
+\}\par
+Arquivo index.tsx\par
+import 'bootstrap/dist/css/bootstrap.css';\par
+import './index.css';\par
+COMMIT: Bootstrap\par
+Passo: Componente Navbar\par
+ATEN\'c7\'c3O: no arquivo tsconfig.json: "baseUrl": "./src" (reinicie o app)\par
+\par
+<header>\par
+    <nav className="container">\par
+        <div className="dsmovie-nav-content">\par
+            <h1>DSMovie</h1>\par
+            <a href="https://github.com/devsuperior" target="_blank" rel="noreferrer">\par
+                <div className="dsmovie-contact-container">\par
+                    <GithubIcon />\par
+                    <p className="dsmovie-contact-link">/devsuperior</p>\par
+                </div>\par
+            </a>\par
+        </div>\par
+    </nav>\par
+</header>\par
+header \{\par
+    height: 60px;\par
+    background-color: var(--color-primary);\par
+    display: flex;\par
+    align-items: center;\par
+\}\par
+\par
+.dsmovie-nav-content \{\par
+    display: flex;\par
+    align-items: center;\par
+    justify-content: space-between;\par
+    color: #fff;\par
+\}\par
+\par
+.dsmovie-nav-content h1 \{\par
+    font-size: 24px;\par
+    margin: 0;\par
+    font-weight: 700;\par
+\}\par
+\par
+.dsmovie-contact-container \{\par
+    display: flex;\par
+    align-items: center;\par
+\}\par
+\par
+.dsmovie-contact-link \{\par
+    margin: 0 0 0 10px;\par
+    font-size: 12px;\par
+\}\par
+COMMIT: Navbar\par
+Passo: Rotas\par
+Instalar React Router DOM\par
+yarn add react-router-dom@6.2.1 @types/react-router-dom@5.3.2\par
+import \{\par
+  BrowserRouter,\par
+  Routes,\par
+  Route\par
+\} from "react-router-dom";\par
+import Listing from 'pages/Listing';\par
+import Form from 'pages/Form';\par
+import Navbar from "components/Navbar";\par
+\par
+function App() \{\par
+  return (\par
+    <BrowserRouter>\par
+      <Navbar />\par
+      <Routes>\par
+        <Route path="/" element=\{<Listing />\} />\par
+        <Route path="/form">\par
+          <Route path=":movieId" element=\{<Form />\} />\par
+        </Route>\par
+      </Routes>\par
+    </BrowserRouter>\par
+  );\par
+\}\par
+\par
+export default App;\par
+COMMIT: Routes\par
+Passo: Tela de formul\'e1rio\par
+const movie = \{\par
+    id: 1,\par
+    image: "{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jBJWaqoSCiARWtfV0GlqHrcdidd.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jBJWaqoSCiARWtfV0GlqHrcdidd.jpg\ul0\cf0}}}}\f0\fs22 ",\par
+    title: "The Witcher",\par
+    count: 2,\par
+    score: 4.5\par
+\};\par
+<div className="dsmovie-form-container">\par
+    <img className="dsmovie-movie-card-image" src="url" alt="The Witcher" />\par
+    <div className="dsmovie-card-bottom-container">\par
+        <h3>"The Witcher"</h3>\par
+        <form className="dsmovie-form">\par
+            <div className="form-group dsmovie-form-group">\par
+                <label htmlFor="email">Informe seu email</label>\par
+                <input type="email" className="form-control" id="email" />\par
+            </div>\par
+            <div className="form-group dsmovie-form-group">\par
+                <label htmlFor="score">Informe sua avalia\'e7\'e3o</label>\par
+                <select className="form-control" id="score">\par
+                    <option>1</option>\par
+                    <option>2</option>\par
+                    <option>3</option>\par
+                    <option>4</option>\par
+                    <option>5</option>\par
+                </select>\par
+            </div>\par
+            <div className="dsmovie-form-btn-container">\par
+                <button type="submit" className="btn btn-primary dsmovie-btn">Salvar</button>\par
+            </div>\par
+        </form >\par
+        <button className="btn btn-primary dsmovie-btn mt-3">Cancelar</button>\par
+    </div >\par
+</div >\par
+.dsmovie-form-container \{\par
+    max-width: 480px;\par
+    margin: 40px auto;\par
+    padding: 20px;\par
+\}\par
+\par
+.dsmovie-form \{\par
+    width: calc(100% - 20px);\par
+\}\par
+\par
+.dsmovie-form-group \{\par
+    margin-bottom: 20px;\par
+\}\par
+\par
+.dsmovie-form-group label \{\par
+    font-size: 12px;\par
+    color: #aaa;\par
+\}\par
+\par
+.dsmovie-form-btn-container \{\par
+    display: flex;\par
+    justify-content: center;\par
+\}\par
+\par
+.dsmovie-movie-card-image \{\par
+    width: 100%;\par
+    border-radius: 8px 8px 0 0;\par
+\}\par
+\par
+.dsmovie-card-bottom-container \{\par
+    background-color: #fff;\par
+    display: flex;\par
+    flex-direction: column;\par
+    align-items: center;\par
+    padding: 10px 10px 20px 10px;\par
+    border-radius: 0 0 8px 8px;\par
+\}\par
+\par
+.dsmovie-card-bottom-container h3 \{\par
+    color: #4A4A4A;\par
+    text-align: center;\par
+    font-size: 14px;\par
+    font-weight: 700;\par
+    margin-bottom: 10px;\par
+    min-height: 40px;\par
+\}\par
+\par
+.dsmovie-btn \{\par
+    background-color: var(--color-primary);\par
+    font-size: 14px;\par
+    font-weight: 700;\par
+    height: 40px;\par
+    width: 180px;\par
+    display: flex;\par
+    align-items: center;\par
+    justify-content: center;\par
+\}\par
+COMMIT: Form layout\par
+Passo: Pagination\par
+<div className="dsmovie-pagination-container">\par
+    <div className="dsmovie-pagination-box">\par
+        <button className="dsmovie-pagination-button" disabled=\{true\} >\par
+            <Arrow />\par
+        </button>\par
+        <p>\{`$\{1\} de $\{3\}`\}</p>\par
+        <button className="dsmovie-pagination-button" disabled=\{false\} >\par
+            <Arrow className="dsmovie-flip-horizontal" />\par
+        </button>\par
+    </div>\par
+</div>\par
+.dsmovie-pagination-container \{\par
+    padding: 15px 0;\par
+    display: flex;\par
+    justify-content: center;\par
+    align-items: center;\par
+\}\par
+\par
+.dsmovie-pagination-box \{\par
+    width: 180px;\par
+    display: flex;\par
+    justify-content: space-between;\par
+    align-items: center;\par
+\}\par
+\par
+.dsmovie-pagination-box form \{\par
+    width: 100%;\par
+    display: flex;\par
+\}\par
+\par
+.dsmovie-pagination-button \{\par
+    width: 40px;\par
+    height: 40px;\par
+    border-radius: 4px;\par
+    background-color: #fff;\par
+    display: flex;\par
+    justify-content: center;\par
+    align-items: center;\par
+    border: 1px solid var(--color-primary);\par
+    cursor: pointer;\par
+\}\par
+\par
+.dsmovie-pagination-button svg \{\par
+    filter: brightness(0) saturate(100%) invert(26%) sepia(19%) saturate(7395%) hue-rotate(234deg) brightness(89%) contrast(92%);\par
+\}\par
+\par
+.dsmovie-pagination-button:disabled \{\par
+    border: 1px solid #c2c2c2;\par
+    cursor: unset;\par
+\}\par
+\par
+.dsmovie-pagination-button:disabled svg \{\par
+    filter: none;\par
+\}\par
+\par
+.dsmovie-pagination-container p \{\par
+    margin: 0;\par
+    font-size: 12px;\par
+    color: var(--color-primary);\par
+\}\par
+\par
+.dsmovie-flip-horizontal \{\par
+    transform: rotate(180deg);\par
+\}\par
+COMMIT: Pagination layout\par
+Passo: MovieCard\par
+MovieStars\par
+<div className="dsmovie-stars-container">\par
+  <StarFull />\par
+  <StarFull />\par
+  <StarFull />\par
+  <StarHalf />\par
+  <StarEmpty />\par
+</div>\par
+.dsmovie-stars-container \{\par
+    width: 130px;\par
+    display: flex;\par
+    justify-content: space-between;\par
+\}\par
+\par
+.dsmovie-stars-container svg \{\par
+    width: 22px;\par
+    height: auto;\par
+\}\par
+MovieScore\par
+<div className="dsmovie-score-container">\par
+    <p className="dsmovie-score-value">\{score > 0 ? score.toFixed(1) : '-'\}</p>\par
+    <MovieStars />\par
+    <p className="dsmovie-score-count">\{count\} avalia\'e7\'f5es</p>\par
+</div>\par
+.dsmovie-score-container \{\par
+    display: flex;\par
+    flex-direction: column;\par
+    align-items: center;\par
+\}\par
+\par
+.dsmovie-score-value \{\par
+    margin: 0;\par
+    color: #FFBB3A;\par
+    font-size: 16px;\par
+    font-weight: 700;\par
+\}\par
+\par
+.dsmovie-score-count \{\par
+    font-size: 12px;\par
+    color: #989898;\par
+    margin: 4px 0 10px 0;\par
+\}\par
+MovieCard\par
+<div>\par
+    <img className="dsmovie-movie-card-image" src=\{movie.image\} alt=\{movie.title\} />\par
+    <div className="dsmovie-card-bottom-container">\par
+        <h3>\{movie.title\}</h3>\par
+        <MovieScore />\par
+        <div className="btn btn-primary dsmovie-btn">Avaliar</div>\par
+    </div>\par
+</div>\par
+COMMIT: MovieCard\par
+Passo: Navega\'e7\'e3o dos bot\'f5es\par
+COMMIT: Navigation buttons\par
+PARAB\'c9NS!\par
+}
+ 

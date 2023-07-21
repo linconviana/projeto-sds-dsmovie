@@ -1,0 +1,165 @@
+{\rtf1\ansi\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang22 Passo: configura\'e7\'e3o de seguran\'e7a\par
+@Configuration\par
+@EnableWebSecurity\par
+public class SecurityConfig extends WebSecurityConfigurerAdapter \{\par
+\par
+\tab @Autowired\par
+\tab private Environment env;\par
+\par
+\tab @Override\par
+\tab protected void configure(HttpSecurity http) throws Exception \{\par
+\tab\tab if (Arrays.asList(env.getActiveProfiles()).contains("test")) \{\par
+\tab\tab\tab http.headers().frameOptions().disable();\par
+\tab\tab\}\par
+\tab\tab\par
+\tab\tab http.cors().and().csrf().disable();\par
+\tab\tab http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);\par
+\tab\tab http.authorizeRequests().anyRequest().permitAll();\par
+\tab\}\par
+\par
+\tab @Bean\par
+\tab CorsConfigurationSource corsConfigurationSource() \{\par
+\tab\tab CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();\par
+\tab\tab configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));\par
+\tab\tab final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();\par
+\tab\tab source.registerCorsConfiguration("/**", configuration);\par
+\tab\tab return source;\par
+\tab\}\par
+\}\par
+COMMIT: Security config\par
+Passo: criar as entidades e o seed do banco\par
+Modelo conceitual\par
+Image\par
+\par
+application.properties\par
+spring.profiles.active=test\par
+\par
+spring.jpa.open-in-view=false\par
+application-test.properties\par
+# Dados de conex\'e3o com o banco H2\par
+spring.datasource.url=jdbc:h2:mem:testdb\par
+spring.datasource.username=sa\par
+spring.datasource.password=\par
+\par
+# Configura\'e7\'e3o do cliente web do banco H2\par
+spring.h2.console.enabled=true\par
+spring.h2.console.path=/h2-console\par
+\par
+# Configura\'e7\'e3o para mostrar o SQL no console\par
+spring.jpa.show-sql=true\par
+spring.jpa.properties.hibernate.format_sql=true\par
+import.sql\par
+INSERT INTO tb_user(email) VALUES ('maria@gmail.com');\par
+INSERT INTO tb_user(email) VALUES ('joao@gmail.com');\par
+INSERT INTO tb_user(email) VALUES ('ana@gmail.com');\par
+INSERT INTO tb_user(email) VALUES ('lucia@gmail.com');\par
+INSERT INTO tb_user(email) VALUES ('joaquim@gmail.com');\par
+\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (4.5, 2, 'The Witcher', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jBJWaqoSCiARWtfV0GlqHrcdidd.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jBJWaqoSCiARWtfV0GlqHrcdidd.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (3.3, 3, 'Venom: Tempo de Carnificina', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/vIgyYkXkg6NC2whRbYjBD7eb3Er.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/vIgyYkXkg6NC2whRbYjBD7eb3Er.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'O Espetacular Homem-Aranha 2: A Amea\'e7a de Electro', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/u7SeO6Y42P7VCTWLhpnL96cyOqd.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/u7SeO6Y42P7VCTWLhpnL96cyOqd.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Matrix Resurrections', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/hv7o3VgfsairBoQFAawgaQ4cR1m.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/hv7o3VgfsairBoQFAawgaQ4cR1m.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Shang-Chi e a Lenda dos Dez An\'e9is', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/cinER0ESG0eJ49kXlExM0MEWGxW.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/cinER0ESG0eJ49kXlExM0MEWGxW.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Django Livre', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/2oZklIzUbvZXXzIFzv7Hi68d6xf.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/2oZklIzUbvZXXzIFzv7Hi68d6xf.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Titanic', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/yDI6D5ZQh67YU4r2ms8qcSbAviZ.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/yDI6D5ZQh67YU4r2ms8qcSbAviZ.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'O Lobo de Wall Street', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/cWUOv3H7YFwvKeaQhoAQTLLpo9Z.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/cWUOv3H7YFwvKeaQhoAQTLLpo9Z.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Aves de Rapina: Arlequina e sua Emancipa\'e7\'e3o Fantabulosa', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jiqD14fg7UTZOT6qgvzTmfRYpWI.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jiqD14fg7UTZOT6qgvzTmfRYpWI.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Rogue One: Uma Hist\'f3ria Star Wars', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/6t8ES1d12OzWyCGxBeDYLHoaDrT.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/6t8ES1d12OzWyCGxBeDYLHoaDrT.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Star Wars: A Guerra dos Clones', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/uK15I3sGd8AudO9z6J6vi0HH1UU.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/uK15I3sGd8AudO9z6J6vi0HH1UU.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Star Wars: Epis\'f3dio I - A Amea\'e7a Fantasma', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/36LnijfQCOC89rCMOhn2OINXROI.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/36LnijfQCOC89rCMOhn2OINXROI.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Vingadores: Ultimato', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Thor', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/cDJ61O1STtbWNBwefuqVrRe3d7l.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/cDJ61O1STtbWNBwefuqVrRe3d7l.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Cisne Negro', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/hqh5O4KssfJWI62HGAgrjHXbxhD.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/hqh5O4KssfJWI62HGAgrjHXbxhD.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'O Sil\'eancio dos Inocentes', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/mfwq2nMBzArzQ7Y9RKE8SKeeTkg.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/mfwq2nMBzArzQ7Y9RKE8SKeeTkg.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Clube da Luta', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/hZkgoQYus5vegHoetLkCJzb17zJ.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/hZkgoQYus5vegHoetLkCJzb17zJ.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Guerra Mundial Z', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/31VpBgUX5O4Z3dn5ZbX8HLqoXH3.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/31VpBgUX5O4Z3dn5ZbX8HLqoXH3.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Harry Potter e as Rel\'edquias da Morte - Parte 1', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/vcrgU0KaNj5mKUCIQSUdiQwTE9y.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/vcrgU0KaNj5mKUCIQSUdiQwTE9y.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Harry Potter e a Pedra Filosofal', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/lvOLivVeX3DVVcwfVkxKf0R22D8.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/lvOLivVeX3DVVcwfVkxKf0R22D8.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Alice no Pa\'eds das Maravilhas', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/qNdlZgz9yoSJ8f0YxQWfKGPoVV.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/qNdlZgz9yoSJ8f0YxQWfKGPoVV.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Animais Fant\'e1sticos e Onde Habitam', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/8Qsr8pvDL3s1jNZQ4HK1d1Xlvnh.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/8Qsr8pvDL3s1jNZQ4HK1d1Xlvnh.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'A Teoria de Tudo', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/kq2MHrRfH6RTfkvyDEmYLmGHE6U.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/kq2MHrRfH6RTfkvyDEmYLmGHE6U.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'O Livro de Boba Fett', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/sjx6zjQI2dLGtEL0HGWsnq6UyLU.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/sjx6zjQI2dLGtEL0HGWsnq6UyLU.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'O \'daltimo Duelo', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/4LrL40XecjGLRpX5I2gzMTUt04l.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/4LrL40XecjGLRpX5I2gzMTUt04l.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Interestelar', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Contato', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/yFkUPqBuUnbhYbQL8VFpTrAT9za.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/yFkUPqBuUnbhYbQL8VFpTrAT9za.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Duna', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+INSERT INTO tb_movie(score, count, title, image) VALUES (0, 0, 'Aquaman', '{{\field{\*\fldinst{HYPERLINK https://www.themoviedb.org/t/p/w533_and_h300_bestv2/2cUsDz4TzFYHrKktT1bKHHQ7Cgm.jpg }}{\fldrslt{https://www.themoviedb.org/t/p/w533_and_h300_bestv2/2cUsDz4TzFYHrKktT1bKHHQ7Cgm.jpg\ul0\cf0}}}}\f0\fs22 ');\par
+\par
+INSERT INTO tb_score(movie_id, user_id, value) VALUES (1, 1, 5.0);\par
+INSERT INTO tb_score(movie_id, user_id, value) VALUES (1, 2, 4.0);\par
+INSERT INTO tb_score(movie_id, user_id, value) VALUES (2, 1, 3.0);\par
+INSERT INTO tb_score(movie_id, user_id, value) VALUES (2, 2, 3.0);\par
+INSERT INTO tb_score(movie_id, user_id, value) VALUES (2, 3, 4.0);\par
+COMMIT: Domain model, database seed\par
+Passo: Busca de filmes\par
+Padr\'e3o camadas adotado\par
+Image\par
+\par
+Criar repository\par
+Criar DTO\par
+Criar service\par
+Criar controller\par
+COMMIT: Find movies\par
+Passo: Salvar avalia\'e7\'e3o\par
+L\'f3gica:\par
+Informar email, id do filme e valor da avalia\'e7\'e3o (1 a 5).\par
+\par
+Recuperar usu\'e1rio do banco de dados pelo email. Se o usu\'e1rio n\'e3o existir, insira no banco.\par
+\par
+Salvar a avalia\'e7\'e3o do usu\'e1rio para o dado filme.\par
+\par
+Recalcular a avalia\'e7\'e3o m\'e9dia do filme e salvar no banco de dados.\par
+\par
+Image\par
+\par
+COMMIT: Save score\par
+Passo: Valida\'e7\'e3o no Postgres local\par
+Criar tr\'eas perfis de projeto: test, dev, prod\par
+Gerar script SQL no perfil dev\par
+Testar projeto no banco Postgres local\par
+application-dev.properties\par
+#spring.jpa.properties.javax.persistence.schema-generation.create-source=metadata\par
+#spring.jpa.properties.javax.persistence.schema-generation.scripts.action=create\par
+#spring.jpa.properties.javax.persistence.schema-generation.scripts.create-target=create.sql\par
+#spring.jpa.properties.hibernate.hbm2ddl.delimiter=;\par
+\par
+spring.datasource.url=jdbc:postgresql://localhost:5432/dsmovie\par
+spring.datasource.username=postgres\par
+spring.datasource.password=1234567\par
+\par
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true\par
+spring.jpa.hibernate.ddl-auto=none\par
+application-prod.properties\par
+spring.datasource.url=$\{DATABASE_URL\}\par
+system.properties\par
+java.runtime.version=17\par
+COMMIT: First homolog\par
+Passo: Implanta\'e7\'e3o no Heroku\par
+Criar app no Heroku\par
+Provisionar banco Postgres\par
+Definir vari\'e1vel APP_PROFILE=prod\par
+Conectar ao banco via pgAdmin\par
+Criar seed do banco\par
+heroku -v\par
+heroku login\par
+heroku git:remote -a <nome-do-app>\par
+git remote -v\par
+git subtree push --prefix backend heroku main\par
+Passo: implanta\'e7\'e3o no Netlify\par
+Deploy b\'e1sico\par
+\par
+Base directory: frontend\par
+Build command: yarn build\par
+Publish directory: frontend/build\par
+Arquivo _redirects\par
+\par
+/* /index.html 200\par
+Configura\'e7\'f5es adicionais\par
+Site settings -> Domain Management: (colocar o nome que voc\'ea quiser)\par
+Deploys -> Trigger deploy\par
+PARAB\'c9NS!\par
+}
+ 
